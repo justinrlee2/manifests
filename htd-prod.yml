@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: hello-today-prod
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: hello-today-prod
+  template:
+    metadata:
+      labels:
+        app: hello-today-prod
+    spec:
+      containers:
+        - image: 'justinrlee/nginx:${parameters["tag"]}'
+          name: primary
+          ports:
+            - containerPort: 80
+              protocol: TCP
